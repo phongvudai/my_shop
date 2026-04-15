@@ -1,0 +1,29 @@
+services:
+  db:
+    image: postgres:18-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: auth
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql
+
+  redis:
+    image: valkey/valkey:9-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - valkey_data:/data
+
+  floci:
+    image: hectorvent/floci:latest
+    ports:
+      - "4566:4566"
+    volumes:
+      - ./data:/app/data
+
+volumes:
+  postgres_data:
+  valkey_data:
